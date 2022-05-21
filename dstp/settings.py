@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-1)eunug*+33h-z3&x%nmm-0@hh=a%yzxt=y)4rx_#xy0mt8hoc
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['10.100.59.13','127.0.0.1','0.0.0.0','local.dstp.com']
+ALLOWED_HOSTS = ['10.100.59.13', '127.0.0.1', '0.0.0.0', 'local.dstp.com']
 
 
 # Application definition
@@ -55,7 +55,7 @@ ROOT_URLCONF = 'dstp.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR/'templates',],
+        'DIRS': [BASE_DIR/'templates', ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -75,9 +75,13 @@ WSGI_APPLICATION = 'dstp.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # },
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'djongo',
+        'NAME': 'db',
     }
 }
 

@@ -1,6 +1,13 @@
 {% extends "layouts/base.html" %} {%block title %}Home {% endblock title%}
-{%block content %}
-
+{%block content %} {% for msg in messages %}
+<div class="alert alert-{{msg.tags}} alert-dismissible fade show" role="alert">
+  <strong>Message:</strong> {{msg}}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{% endfor %}
 <h1>Welcome to Project</h1>
-
-{% endblock content %}
+{% if user.is_authenticated %}
+<h1>Hello {{fName}}</h1>
+{% endif %} {% endblock content %}

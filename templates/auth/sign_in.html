@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+  </head>
+  <body>
+    <div id="login" class="" style="width: 50%; margin-left: 25%">
+      <h3 class="text-center text-black pt-5">IOT Sensor</h3>
+      <div class="container">
+        <form action="/" method="post">
+          {% csrf_token %}
+          <div class="mb-3">
+            <label for="userName" class="form-label">User Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="userName"
+              name="uName"
+              aria-describedby="emailHelp"
+              required
+            />
+            {% comment %}
+            <div id="emailHelp" class="form-text">
+              We'll never share your email with anyone else.
+            </div>
+            {% endcomment %}
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              name="password"
+              required
+            />
+          </div>
+          <div>
+            <button type="submit" class="btn btn-primary">Login</button>
+            <a href="/sign_up" class="btn btn-primary" style="float: right"
+              >Sign Up</a
+            >
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
