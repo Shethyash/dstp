@@ -1,0 +1,20 @@
+{% extends "layouts/base.html" %} {%block title %}Nodes {% endblock title%}
+{%block content %}
+
+<h1>List of Value</h1>
+<table>
+  <th>Id</th>
+  <th>Name</th>
+  <th>Value</th>
+  {% for val in data %}
+  <tr>
+    <td>{{val.id}}</td>
+    <td>{{val.value}}</td>
+    <td>{{val.node_id}}</td>
+    <td>{{val.created_at}}</td>
+    <td>{{val.updated_at}}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+{% endblock content %}

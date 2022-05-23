@@ -39,3 +39,6 @@
 
 - pip install pymongo==3.12.3
 - pip install djongo
+
+- python manage.py makemigrations
+- python manage.py migrate
