@@ -11,78 +11,86 @@
     <!------ Include the above in your HEAD tag ---------->
   </head>
   <body>
-    <div id="login" class="" style="width: 50%; margin-left: 25%">
-      <h3 class="text-center text-black pt-5">Register</h3>
-      <div class="container">
-        <form action="/sign_up" method="post">
-          {% csrf_token %}
-          <div class="mb-3">
-            <label for="userName" class="form-label">User Name</label>
-            <input
-              type="text"
-              class="form-control"
-              id="userName"
-              name="uName"
-              aria-describedby="emailHelp"
-              placeholder="Enter User Name"
-            />
-          </div>
-          <div class="mb-3">
-            <label for="firstName" class="form-label">First Name</label>
-            <input
-              type="text"
-              class="form-control"
-              id="firstName"
-              name="fName"
-              aria-describedby="emailHelp"
-              placeholder="Enter First Name"
-            />
-          </div>
-          <div class="mb-3">
-            <label for="lastName" class="form-label">Last Name</label>
-            <input
-              type="text"
-              class="form-control"
-              id="lName"
-              name="lName"
-              aria-describedby="emailHelp"
-              placeholder="Enter Last Name"
-            />
-          </div>
-          <div class="mb-3">
-            <label for="email" class="form-label">Email address</label>
-            <input
-              type="email"
-              class="form-control"
-              id="email"
-              name="email"
-              aria-describedby="emailHelp"
-              placeholder="Enter email"
-            />
-          </div>
-          <div class="mb-3">
-            <label for="password1" class="form-label">Password</label>
-            <input
-              type="password"
-              class="form-control"
-              id="password1"
-              name="password1"
-              placeholder="Enter Password"
-            />
-          </div>
-          <div class="mb-3">
-            <label for="password2" class="form-label">Confirm Password</label>
-            <input
-              type="password"
-              class="form-control"
-              id="password2"
-              name="password2"
-              placeholder="Re-enter Password"
-            />
-          </div>
-          <button type="submit" class="btn btn-primary">Sign Up</button>
-          <a style="float: right" href="/" class="btn btn-primary">Log In</a>
-        </form>
+    <div class="row">
+      <span class="col-3"></span>
+      <div id="sign_up" class="col-6">
+        <h3 class="text-center text-black pt-5">Register</h3>
+        <div class="container">
+          <form action="/sign_up" method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="userName" class="form-label">User Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="userName"
+                name="uName"
+                aria-describedby="emailHelp"
+                placeholder="Enter User Name"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="firstName" class="form-label">First Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="firstName"
+                name="fName"
+                aria-describedby="emailHelp"
+                placeholder="Enter First Name"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="lastName" class="form-label">Last Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="lName"
+                name="lName"
+                aria-describedby="emailHelp"
+                placeholder="Enter Last Name"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email address</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                name="email"
+                aria-describedby="emailHelp"
+                placeholder="Enter email"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="password1" class="form-label">Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="password1"
+                name="password1"
+                placeholder="Enter Password"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="password2" class="form-label">Confirm Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="password2"
+                name="password2"
+                placeholder="Re-enter Password"
+              />
+            </div>
+            <div>
+              <button type="submit" class="col-3 btn btn-primary">
+                Sign Up
+              </button>
+              {% comment %} <span class="col-6"></span> {% endcomment %}
+              <a href="/" class="col-3 btn btn-primary float-right">Log In</a>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </body>
