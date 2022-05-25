@@ -81,7 +81,7 @@ DATABASES = {
     # },
     'default': {
         'ENGINE': 'djongo',
-        'NAME': 'db',
+        'NAME': 'iot_db',
     }
 }
 

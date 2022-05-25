@@ -121,4 +121,4 @@ def node(request):
         description = request.PUT.get('description')
         latitude = request.PUT.get('latitude')
         longitude = request.PUT.get('longitude')
-    return render(request, 'add_node.html')
+    return render(request, 'nodes/add_node.html')

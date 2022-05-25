@@ -36,9 +36,15 @@
   - python manage.py startapp name
 
 # mongo db
-
+https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/
 - pip install pymongo==3.12.3
 - pip install djongo
 
 - python manage.py makemigrations
 - python manage.py migrate
+
+# working with mongo
+
+- sudo systemctl start mongod
+- mongo
+- use iot_db

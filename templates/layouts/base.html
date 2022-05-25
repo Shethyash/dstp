@@ -23,7 +23,7 @@
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
-        <a class="navbar-brand" href="/">Project</a>
+        <a class="navbar-brand" href="/home">Project</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -47,7 +47,7 @@
             </li>
             {% endcomment %}
             <li class="nav-item">
-              <a class="nav-link" href="nodes">Nodes</a>
+              <a class="nav-link" href="/nodes">Nodes</a>
             </li>
             {% comment %}
             <li class="nav-item dropdown">
@@ -99,7 +99,9 @@
         </div>
       </div>
     </nav>
+    <div class="container-fluid">
     {% block content %}{% endblock content %}
+    </div>
     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
