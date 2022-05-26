@@ -11,60 +11,67 @@
     <!------ Include the above in your HEAD tag ---------->
   </head>
   <body>
-    {% for msg in messages %}
-    <div
-      class="alert alert-{{msg.tags}} alert-dismissible fade show"
-      role="alert"
-    >
-      <strong>Message:</strong> {{msg}}
-      <button
-        type="button"
-        class="close"
-        data-dismiss="alert"
-        aria-label="Close"
+    <div class="row">
+      <span class="col-3"></span>
+      {% for msg in messages %}
+      <div
+        class="alert alert-{{msg.tags}} alert-dismissible fade show"
+        role="alert"
       >
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    {% endfor %}
-    <div id="login" class="" style="width: 50%; margin-left: 25%">
-      <h3 class="text-center text-black pt-5">IOT Sensor</h3>
-      <div class="container">
-        <form action="/" method="post">
-          {% csrf_token %}
-          <div class="mb-3">
-            <label for="userName" class="form-label">User Name</label>
-            <input
-              type="text"
-              class="form-control"
-              id="userName"
-              name="uName"
-              aria-describedby="emailHelp"
-              required
-            />
-            {% comment %}
-            <div id="emailHelp" class="form-text">
-              We'll never share your email with anyone else.
+        <strong>Message:</strong> {{msg}}
+        <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% endfor %}
+      <div id="login" class="col-6">
+        <h3 class="text-center text-black pt-5">IOT Sensor</h3>
+        <div class="container">
+          <form action="/" method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="userName" class="form-label">User Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="userName"
+                name="uName"
+                aria-describedby="emailHelp"
+                required
+              />
+              {% comment %}
+              <div id="emailHelp" class="form-text">
+                We'll never share your email with anyone else.
+              </div>
+              {% endcomment %}
             </div>
-            {% endcomment %}
-          </div>
-          <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
-            <input
-              type="password"
-              class="form-control"
-              id="password"
-              name="password"
-              required
-            />
-          </div>
-          <div>
-            <button type="submit" class="btn btn-primary">Login</button>
-            <a href="/sign_up" class="btn btn-primary" style="float: right"
-              >Sign Up</a
-            >
-          </div>
-        </form>
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                name="password"
+                required
+              />
+            </div>
+            <div>
+              <button type="submit" class="col-3 btn btn-primary">Login</button>
+              <span class="col-6"></span>
+              <a
+                href="/sign_up"
+                class="col-3 btn btn-primary"
+                style="float: right"
+                >Sign Up</a
+              >
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </body>
