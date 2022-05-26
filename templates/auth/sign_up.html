@@ -11,6 +11,22 @@
     <!------ Include the above in your HEAD tag ---------->
   </head>
   <body>
+    {% for msg in messages %}
+    <div
+      class="alert alert-{{msg.tags}} alert-dismissible fade show"
+      role="alert"
+    >
+      <strong>Message:</strong> {{msg}}
+      <button
+        type="button"
+        class="close"
+        data-dismiss="alert"
+        aria-label="Close"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endfor %}
     <div class="row">
       <span class="col-3"></span>
       <div id="sign_up" class="col-6">
