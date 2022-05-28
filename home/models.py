@@ -16,13 +16,13 @@ class Nodes(models.Model):
 
 
 class Feeds(models.Model):
-    c_id = models.IntegerField()
     entry_id = models.IntegerField()
-    field1 = models.FloatField(null=True)
-    field2 = models.FloatField(null=True)
-    field3 = models.FloatField(null=True)
-    field4 = models.FloatField(null=True)
-    field5 = models.FloatField(null=True)
-    field6 = models.FloatField(null=True)
+    node_id = models.IntegerField()
+    temprature = models.FloatField(null=True)
+    humidity = models.FloatField(null=True)
+    LWS = models.FloatField(null=True)
+    soil_temprature = models.FloatField(null=True)
+    soil_moisture = models.FloatField(null=True)
+    battery_status = models.FloatField(null=True)
     created_at = models.DateTimeField()
-    updated_at = models.DateTimeField()
+    

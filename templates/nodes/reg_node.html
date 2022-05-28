@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link
+      href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+      rel="stylesheet"
+      id="bootstrap-css"
+    />
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+  </head>
+  <body>
+    <div id="login" class="" style="width: 50%; margin-left: 25%">
+      <h3 class="text-center text-black pt-5">Node Registration</h3>
+      <div class="container">
+        <form action="/nodereg" method="post">
+          {% csrf_token %}
+          <div class="mb-3">
+            <label for="NodeName" class="form-label">Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="nodeName"
+              name="name"
+              placeholder="Enter Node Name"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="userid" class="form-label">User id</label>
+            <input
+              type="text"
+              class="form-control"
+              id="userid"
+              name="uid"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="status" class="form-label">Status</label>
+            <input
+              type="text"
+              class="form-control"
+              id="status"
+              name="status"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="lastName" class="form-label">Description</label>
+            <input
+              type="text"
+              class="form-control"
+              id="desc"
+              name="desc"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="Latitude" class="form-label">Latitude</label>
+            <input
+              type="text"
+              class="form-control"
+              id="lat"
+              name="latitude"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="Longitude" class="form-label">Longitude</label>
+            <input
+              type="text"
+              class="form-control"
+              id="Longitude"
+              name="longitude"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="ctime" class="form-label">Created_at</label>
+            <input
+              type="text"
+              class="form-control"
+              id="ctime"
+              name="ctime"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="utime" class="form-label">Updated_at</label>
+            <input
+              type="text"
+              class="form-control"
+              id="u"
+              name="utime"
+            />
+          </div>
+          <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
