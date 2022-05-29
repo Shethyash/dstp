@@ -6,6 +6,14 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from home.models import Feeds
 from django.views.decorators.csrf import csrf_exempt
+from dstp import settings
+from django.core.mail import send_mail, EmailMessage
+from django.contrib.sites.shortcuts import get_current_site
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_str, force_bytes
+from django.template.loader import render_to_string
+from . tokens import generate_token
+
 # Create your views here.
 
 def index(request):
@@ -29,17 +37,61 @@ def sign_up(request):
         if User.objects.filter(email=email):
             messages.error(request, 'Email already exists')
             return redirect('/')
+        if len(user_name) > 10:
+            messages.error(request, 'Username must be less than 10 characters')
         if password1 != password2:
             messages.error(request, 'Passwords do not match')
             return redirect('/')
         myUser = User.objects.create_user(user_name, email, password1)
         myUser.first_name = first_name
         myUser.last_name = last_name
+        myUser.is_active = False
         myUser.save()
 
-        messages.success(request, 'User created successfully')
+        # welcome email
+        subject = "Welcome to IOT Dashboard"
+        message = "Welcome to IOT Dashboard, " + first_name + " " + \
+            last_name + "!" + "Thank you for signing up with us"
+        from_email = settings.EMAIL_HOST_USER
+        to_list = ['202111046@daiict.ac.in', '202111045@daiict.ac.in']
+        send_mail(subject, message, from_email, to_list, fail_silently=True)
+
+        # email verification
+        current_site = get_current_site(request)
+        email_subject = 'Activate your account'
+        msg = render_to_string('emails/acc_active_email.html', {
+            'name': myUser.first_name,
+            'domain': current_site.domain,
+            'uid': urlsafe_base64_encode(force_bytes(myUser.pk)),
+            'token': generate_token.make_token(myUser),
+        })
+
+        email = EmailMessage(email_subject, msg,
+                             settings.EMAIL_HOST_USER, to=to_list)
+        email.fail_silently = True
+        email.send()
+
+        messages.success(
+            request, 'User created successfully, We have sent you an email to verify your account')
         return redirect('sign_in')
     return render(request, 'auth/sign_up.html')
+
+
+def activate(request, uidb64, token):
+    try:
+        uid = force_str(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+    if user is not None and generate_token.check_token(user, token):
+        user.is_active = True
+        user.save()
+        messages.success(request, 'Your account has been verified')
+        return redirect('/')
+    else:
+        messages.error(request, 'The link is invalid')
+        return redirect('/')
+
 
 def sign_in(request):
     if request.method == "POST":
