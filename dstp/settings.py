@@ -33,7 +33,7 @@ SECRET_KEY = 'django-insecure-1)eunug*+33h-z3&x%nmm-0@hh=a%yzxt=y)4rx_#xy0mt8hoc
 DEBUG = True
 
 ALLOWED_HOSTS = ['10.100.59.13', '127.0.0.1', '0.0.0.0', 'local.dstp.com']
-
+LOGIN_URL = '/'
 
 # Application definition
 

@@ -16,16 +16,15 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_str, force_bytes
 from django.template.loader import render_to_string
 from . tokens import generate_token
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
 
+@login_required()
 def index(request):
-    if request.user.is_authenticated:
-        fName = request.user.first_name
-        return render(request, 'index.html', {'fName': fName})
-    else:
-        return redirect('/')
+    fName = request.user.first_name
+    return render(request, 'index.html', {'fName': fName})
 
 
 def sign_up(request):
@@ -103,9 +102,11 @@ def sign_in(request):
         user_name = request.POST.get('uName')
         password = request.POST.get('password')
 
-        user = authenticate(username=user_name,    password=password)
+        user = authenticate(username=user_name, password=password)
         if user is not None:
             login(request, user)
+            if 'next' in request.POST:
+                return redirect(request.POST.get('next'))
             return redirect('/home')
         else:
             messages.error(request, 'Invalid username or password')
@@ -113,10 +114,11 @@ def sign_in(request):
     return render(request, 'auth/sign_in.html')
 
 
+@login_required()
 def sign_out(request):
     logout(request)
     messages.success(request, 'You have been logged out')
-    return redirect('/home')
+    return redirect('/')
 
 
 @csrf_exempt
@@ -142,6 +144,7 @@ def store_feeds(request):
     return HttpResponse()
 
 
+@login_required()
 def get_feeds(request):
     if request.method == "GET":
         id = request.GET.get("id")
@@ -149,15 +152,16 @@ def get_feeds(request):
         return render(request, 'get_feeds.html', {'data': data})
 
 
+@login_required()
 def node(request):
     data = Nodes.objects.filter(user_id=request.user.id)
     return render(request, 'nodes/get_node.html', {'data': data})
 
 
+@login_required()
 def nodereg(request):
     if request.method == "POST":
         Name = request.POST.get('name')
-        User_id = request.user.id
         Status = request.POST.get('status')
         Description = request.POST.get('desc')
         Latitude = request.POST.get('latitude')
@@ -165,7 +169,7 @@ def nodereg(request):
 
         node_data = Nodes(
             name=Name,
-            user_id=User_id,
+            user_id=request.user.id,
             status=Status,
             description=Description,
             latitude=Latitude,
@@ -177,8 +181,8 @@ def nodereg(request):
     return render(request, 'nodes/reg_node.html')
 
 
+@login_required()
 def edit_node(request):
     id = request.GET.get("id")
     data = Nodes.objects.get(id=id)
-    print(data)
     return render(request, 'nodes/reg_node.html', {'data': data})
