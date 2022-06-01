@@ -16,7 +16,6 @@ class Nodes(models.Model):
 
 
 class Feeds(models.Model):
-    entry_id = models.IntegerField()
     node_id = models.IntegerField()
     temprature = models.FloatField(null=True)
     humidity = models.FloatField(null=True)
@@ -24,5 +23,5 @@ class Feeds(models.Model):
     soil_temprature = models.FloatField(null=True)
     soil_moisture = models.FloatField(null=True)
     battery_status = models.FloatField(null=True)
-    created_at = models.DateTimeField()
+    created_at = models.DateTimeField(default=datetime.now)
     

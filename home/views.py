@@ -1,10 +1,13 @@
 import json
+from lib2to3.pytree import Node
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from home.models import Feeds
+from home.models import Nodes
+from datetime import datetime
 from django.views.decorators.csrf import csrf_exempt
 from dstp import settings
 from django.core.mail import send_mail, EmailMessage
@@ -16,12 +19,14 @@ from . tokens import generate_token
 
 # Create your views here.
 
+
 def index(request):
     if request.user.is_authenticated:
         fName = request.user.first_name
         return render(request, 'index.html', {'fName': fName})
     else:
         return redirect('/')
+
 
 def sign_up(request):
     if request.method == "POST":
@@ -107,21 +112,12 @@ def sign_in(request):
             return redirect('/')
     return render(request, 'auth/sign_in.html')
 
+
 def sign_out(request):
     logout(request)
     messages.success(request, 'You have been logged out')
     return redirect('/home')
 
-def add_node(request):
-    if request.method == "POST":
-        name = request.POST.get('name')
-        user_id = request.POST.get('user_id')
-        status = request.POST.get('status')
-        description = request.POST.get('description')
-        latitude = request.POST.get('latitude')
-        longitude = request.POST.get('longitude')
-
-    return render(request, 'add_node.html')
 
 @csrf_exempt
 def store_feeds(request):
@@ -133,42 +129,56 @@ def store_feeds(request):
         print(json.dumps(body))
         f_data = Feeds(
             node_id=body['node_id'],
-            entry_id=body['entry_id'],
             temprature=body['temprature'],
             humidity=body['humidity'],
             LWS=body['LWS'],
             soil_temprature=body['soil_temprature'],
             soil_moisture=body['soil_moisture'],
-            battery_status=body['battery_status'],
-            created_at=body['created_at'])
-        
+            battery_status=body['battery_status'])
+
         f_data.save()
         return HttpResponse(json.dumps(body))
-    
+
     return HttpResponse()
 
+
 def get_feeds(request):
-    data = Feeds.objects.all()
-    return render(request, 'get_feeds.html', {'data': data})
+    if request.method == "GET":
+        id = request.GET.get("id")
+        data = Feeds.objects.filter(node_id=id)
+        return render(request, 'get_feeds.html', {'data': data})
+
 
 def node(request):
-    
-    return render(request, 'nodes/add_node.html')
+    data = Nodes.objects.filter(user_id=request.user.id)
+    return render(request, 'nodes/get_node.html', {'data': data})
+
 
 def nodereg(request):
     if request.method == "POST":
-        name = request.POST.get('name')
-        user_id = request.POST.get('uid')
-        status = request.POST.get('status')
-        description = request.POST.get('description')
-        latitude = request.POST.get('latitude')
-        longitude = request.POST.get('longitude')
-        
-    if request.method == "PUT":
-        name = request.PUT.get('name')
-        user_id = request.PUT.get('user_id')
-        status = request.PUT.get('status')
-        description = request.PUT.get('description')
-        latitude = request.PUT.get('latitude')
-        longitude = request.PUT.get('longitude')
-    return render(request,'nodes/reg_node.html')
+        Name = request.POST.get('name')
+        User_id = request.user.id
+        Status = request.POST.get('status')
+        Description = request.POST.get('desc')
+        Latitude = request.POST.get('latitude')
+        Longitude = request.POST.get('longitude')
+
+        node_data = Nodes(
+            name=Name,
+            user_id=User_id,
+            status=Status,
+            description=Description,
+            latitude=Latitude,
+            longitude=Longitude
+        )
+        node_data.save()
+        return redirect('/nodes')
+
+    return render(request, 'nodes/reg_node.html')
+
+
+def edit_node(request):
+    id = request.GET.get("id")
+    data = Nodes.objects.get(id=id)
+    print(data)
+    return render(request, 'nodes/reg_node.html', {'data': data})

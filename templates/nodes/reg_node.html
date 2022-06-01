@@ -24,15 +24,9 @@
               id="nodeName"
               name="name"
               placeholder="Enter Node Name"
-            />
-          </div>
-          <div class="mb-3">
-            <label for="userid" class="form-label">User id</label>
-            <input
-              type="text"
-              class="form-control"
-              id="userid"
-              name="uid"
+              {% if data.name %}
+              value={{data.name}}
+              {% endif %}
             />
           </div>
           <div class="mb-3">
@@ -69,24 +63,6 @@
               class="form-control"
               id="Longitude"
               name="longitude"
-            />
-          </div>
-          <div class="mb-3">
-            <label for="ctime" class="form-label">Created_at</label>
-            <input
-              type="text"
-              class="form-control"
-              id="ctime"
-              name="ctime"
-            />
-          </div>
-          <div class="mb-3">
-            <label for="utime" class="form-label">Updated_at</label>
-            <input
-              type="text"
-              class="form-control"
-              id="u"
-              name="utime"
             />
           </div>
           <button type="submit" class="btn btn-primary">Register</button>
