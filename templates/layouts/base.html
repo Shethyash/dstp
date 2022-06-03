@@ -82,6 +82,12 @@
             </li>
             {% endcomment %}
           </ul>
+          <a
+            class="d-flex btn btn-primary"
+            style="margin-right: 5px"
+            href="/user_profile"
+            >Profile</a
+          >
           <a class="d-flex btn btn-primary" href="/sign_out">Sign Out</a>
           {% comment %}
           <form class="d-flex">
@@ -99,9 +105,7 @@
         </div>
       </div>
     </nav>
-    <div class="container-fluid">
-    {% block content %}{% endblock content %}
-    </div>
+    <div class="container-fluid">{% block content %}{% endblock content %}</div>
     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->

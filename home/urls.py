@@ -11,5 +11,6 @@ urlpatterns = [
     path('get_feeds', views.get_feeds, name='get_feeds'),
     path('nodereg', views.nodereg, name='nodereg'),
     path('node_edit', views.edit_node, name='edit_node'),
+    path('user_profile', views.user_profile, name='user_profile'),
     path('activate/<uidb64>/<token>', views.activate, name='activate'),
 ]

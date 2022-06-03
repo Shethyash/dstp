@@ -1,5 +1,5 @@
+from csv import DictWriter
 import json
-from lib2to3.pytree import Node
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
@@ -23,8 +23,7 @@ from django.contrib.auth.decorators import login_required
 
 @login_required()
 def index(request):
-    fName = request.user.first_name
-    return render(request, 'index.html', {'fName': fName})
+    return render(request, 'index.html', {'fName': request.user.first_name})
 
 
 def sign_up(request):
@@ -186,3 +185,59 @@ def edit_node(request):
     id = request.GET.get("id")
     data = Nodes.objects.get(id=id)
     return render(request, 'nodes/reg_node.html', {'data': data})
+
+
+@login_required()
+def user_profile(request):
+    qId = request.GET.get("id", None)
+    data = {}
+    if qId is None:
+        id = qId
+    else:
+        id = request.user.id
+        data = User.objects.get(id=request.user.id)
+    print(data, "hello")
+    return render(request, 'profile.html', {'data': request.user})
+
+
+def make_csv(node_id):
+    # work in progress
+    node = Nodes.objects.get(id=node_id)
+    data = Feeds.objects.filter(node_id=node_id)
+    # list of column names
+    field_names = ['created_at', 'entry_id', 'field1', 'field2', 'field3', 'field4', 'field5', 'field6',
+                   'field7', 'field8', 'latitude', 'longitude', 'elevation', 'status']
+
+    # Dictionary
+    feeds_dict = []
+
+    for feed in data:
+        feeds_dict.append({
+            'created_at': feed['created_at'],
+            'entry_id': feed['entry_id'],
+            'field1': feed['field1'],
+            'field2': feed['field2'],
+            'field3': feed['field3'],
+            'field4': feed['field4'],
+            'field5': feed['field5'],
+            'field6': feed['field6'],
+            'field7': feed['field7'],
+            'field8': feed['field8'],
+            'latitude': node['latitude'],
+            'longitude': node['longitude'],
+            'elevation': '',
+            'status': '',
+        })
+
+        csv_name = 'static/csv/feeds_' + str(node_id) + '.csv'
+        # csv_name = 'static/csv/demo.csv'
+        try:
+            with open(csv_name, 'a', newline='') as f_object:
+                writer = DictWriter(f_object, fieldnames=field_names)
+                writer.writeheader()
+                for data in feeds_dict:
+                    writer.writerow(data)
+
+                f_object.close()
+        except IOError:
+            print("I/O error")

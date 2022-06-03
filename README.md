@@ -1,17 +1,14 @@
 # dstp
 
+# dependencies
+
 - sudo apt install python3-pip
-
 - sudo apt install python3-venv
-
 - sudo python3 -m venv my_env
-
-- start venv : source my_env/bin/activate
-- close venv : deactivate
-
-- install django : pip install django
-
-# Server for IOT data
+- pip install django
+- pip install django-crontab
+- pip install pymongo==3.12.3
+- pip install djongo
 
 # command
 
@@ -19,6 +16,7 @@
   - python -m venv env
 - activate/deactivate environment
   - env\Scripts\Activate.ps1
+  - source my_env/bin/activate
   - deactivate
 - install django
   - pip install django
@@ -36,15 +34,19 @@
   - python manage.py startapp name
 
 # mongo db
+
 https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/
-- pip install pymongo==3.12.3
-- pip install djongo
 
 - python manage.py makemigrations
 - python manage.py migrate
-
-# working with mongo
-
-- sudo systemctl start mongod
+- start mongo server : sudo systemctl start mongod
 - mongo
 - use iot_db
+
+# cron Job
+
+https://gutsytechster.wordpress.com/2019/06/24/how-to-setup-a-cron-job-in-django/
+
+- add cron jobs : python manage.py crontab add
+- active cron job list : python manage.py crontab show
+- remove cron job : python manage.py crontab remove
